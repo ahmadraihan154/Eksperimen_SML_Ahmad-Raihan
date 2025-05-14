@@ -12,13 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Run actions/checkout@v3
       uses: actions/checkout@v3
 
-    - name: Set up Python
+    - name: Set up Python 3.12.7
       uses: actions/setup-python@v4
       with:
         python-version: '3.12.7'
+
+    - name: Check Env
+      run: |
+        echo "Python version: $(python --version)"
+        echo "Current directory: $(pwd)"
+        ls -la
 
     - name: Install dependencies
       run: |
