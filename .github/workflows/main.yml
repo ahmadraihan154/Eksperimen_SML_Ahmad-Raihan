@@ -3,7 +3,7 @@ name: Preprocessing Pipeline
 on:
   push:
     paths:
-      - 'Preprocessing/automate_Ahmad_Raihan.py'
+      - 'preprocessing/automate_Ahmad_Raihan.py'
       - 'dataset_raw/**'
       - '.github/workflows/main.yml'
 
