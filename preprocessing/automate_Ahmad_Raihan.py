@@ -5,12 +5,14 @@ from sklearn.preprocessing import PowerTransformer, OneHotEncoder
 from sklearn.model_selection import train_test_split
 import joblib
 
-def preprocessing_pipeline(input=r'D:\6. Membangun Sistem Machine Learning\Eksperimen_SML_Ahmad-Raihan\dataset_raw\diamonds.csv', output=r'D:\6. Membangun Sistem Machine Learning\Eksperimen_SML_Ahmad-Raihan\preprocessing\diamond_preprocessing'):
+def preprocessing_pipeline():
   # Pastikan filenya sudah ada
-  os.makedirs(output, exist_ok=True)
+  input_path = 'dataset_raw'
+  output_path = os.path.join('preprocessing', 'diamond_preprocessing')
+  os.makedirs(output_path, exist_ok=True)
   
   # 1. Membaca file
-  diamonds_df = pd.read_csv(input)
+  diamonds_df = pd.read_csv(os.path.join(input_path, 'diamonds.csv'))
 
   # 2. Menghapus kolom yang tidak berguna
   diamonds_df_clean = diamonds_df.drop(columns=['Unnamed: 0', 'depth'])
@@ -67,16 +69,16 @@ def preprocessing_pipeline(input=r'D:\6. Membangun Sistem Machine Learning\Ekspe
   X_test_encoded.drop(columns=['cut', 'color', 'clarity'], inplace=True)
 
   # 9. Simpan dataset hasil preprocessing
-  X_train_encoded.to_csv(os.path.join(output, 'X_train.csv'), index=False)
-  X_test_encoded.to_csv(os.path.join(output, 'X_test.csv'), index=False)
-  y_train.to_csv(os.path.join(output, 'y_train.csv'), index=False)
-  y_test.to_csv(os.path.join(output, 'y_test.csv'), index=False)
+  X_train_encoded.to_csv(os.path.join(output_path, 'X_train.csv'), index=False)
+  X_test_encoded.to_csv(os.path.join(output_path, 'X_test.csv'), index=False)
+  y_train.to_csv(os.path.join(output_path, 'y_train.csv'), index=False)
+  y_test.to_csv(os.path.join(output_path, 'y_test.csv'), index=False)
 
   # 10. Simpan proses preprocessing transformer dan encoder
-  joblib.dump(power_transformers, os.path.join(output, 'power_transformers.joblib'))
-  joblib.dump(encoder, os.path.join(output, 'onehot_encoder.joblib'))
+  joblib.dump(power_transformers, os.path.join(output_path, 'power_transformers.joblib'))
+  joblib.dump(encoder, os.path.join(output_path, 'onehot_encoder.joblib'))
 
-  print(f'Proses preprorcessing telah selesai dan hasilnya disimpan di : {output}')
+  print(f'Proses preprorcessing telah selesai dan hasilnya disimpan di : {output_path}')
 
 if __name__ == '__main__':
   preprocessing_pipeline()
